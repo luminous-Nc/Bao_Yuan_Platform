@@ -1,15 +1,15 @@
 <template>
-  <el-header :height="30" id="Top">
-    <el-row >
-      <el-col :span="5"><el-button class="headerButton" type="text">Bao Yuan Tang</el-button></el-col>
-      <el-col :span="5"><bread-crumb></bread-crumb></el-col>
-      <el-col :span="14">
-        <el-row type="flex" justify="end">
-          <el-col :span="2"><el-button  type="text" style="color: #eeeeee;font-size: 18px">设置</el-button></el-col>
-          <el-col :span="2"><el-button  type="text" style="color: #eeeeee;font-size: 18px">帮助</el-button></el-col>
-        </el-row>
-      </el-col>
-    </el-row>
+  <el-header height="30" id="Top">
+    <div class="headerRow">
+      <div style="flex: 1"><el-button class="headerButton" type="text">Bao Yuan Tang</el-button></div>
+      <div style="flex: 4"><bread-crumb style="height:100%"></bread-crumb></div>
+      <div style="flex: 1">
+        <div style="float:right;width:66% ;display: flex">
+          <el-col style="flex: 1"><el-button  type="text" style="color: #eeeeee;font-size: 18px">设置</el-button></el-col>
+          <el-col style="flex: 1"><el-button  type="text" style="color: #eeeeee;font-size: 18px">帮助</el-button></el-col>
+        </div>
+      </div>
+    </div>
   </el-header>
 </template>
 
@@ -33,12 +33,17 @@
 </script>
 
 <style scoped>
-  #Top{
+  .headerRow{
     background: black;
+    width:100%;
+    display:flex
   }
   .headerButton{
     color: #eeeeee;
     font-family:Helvetica ;
     font-size:22px;
+  }
+  .el-header {
+    padding:0
   }
 </style>

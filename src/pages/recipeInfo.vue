@@ -4,30 +4,41 @@
     <el-col span="2"><el-button size="small" @click = "back" plain icon="el-icon-back">返回</el-button></el-col>
     <el-col span="22">
       <div style="float:right">
-        <el-input
-          style="width: 160px;margin-left: 10px"
-          v-model="key"
-          size="small"
-          clearable
-          placeholder="可搜索任意特征">
-          <i slot="prefix" class="el-input__icon el-icon-search"></i>
-        </el-input>
-        <el-button type="primary" size="small"  icon="el-icon-plus" plain>添加</el-button>
+        <el-button type="primary" size="small"  icon="el-icon-plus" plain>修改</el-button>
         <el-button @click="fresh" type="success" size = "small"icon="el-icon-refresh" plain>刷新</el-button>
       </div>
     </el-col>
   </el-row>
-  <div class="content">
-  <el-col class="textLine">姓名:  {{recipe.patient.name}}</el-col>
-  <el-col class="textLine">性别:  {{recipe.patient.sex}}</el-col>
-  <el-col class="textLine">年龄:  {{recipe.patient.age}}</el-col>
-<!--  <el-col class="textLine">症状:  {{recipe.diagnose.symptom}}</el-col>-->
-<!--  <el-col class="textLine">诊断:  {{recipe.patient.result}}</el-col>-->
+  <el-card class="content">
+    <div style="text-align: center"><h2>处方签</h2></div>
+
+      <div class="recipeLine">
+        <div class="textLine"><b>姓名:   </b>  {{recipe.patient.name}}</div>
+        <div class="textLine"><b>性别:   </b>  {{recipe.patient.sex}}</div>
+         <div class="textLine"> <b>年龄:   </b>  {{recipe.patient.age}}    </div>
+        <div class="textLine"><b>日期:   </b>  {{recipe.recipeTime}}</div>
+      </div>
+
+    <div class="recipeLine">
+      <div class="textLine"><b>住址:   </b>  {{recipe.patient.address}}</div>
+      <div class="textLine"><b>电话:   </b>  {{recipe.patient.phone}}</div>
+    </div>
+    <div class="recipeLine">
+        <div class="textLine"><b>症状:   </b>  {{recipe.diagnose.symptom}}</div>
+      <div class="textLine"><b>化验:   </b>  {{recipe.diagnose.test}}</div>
+      </div>
+  <div class="recipeLine">
+    <div class="textLine"><b>诊断:   </b>  {{recipe.diagnose.result}}</div>
+  </div>
+    <div class="recipeLine">
+      <h1>Rp.</h1>
+    </div>
+
 
   <el-table
     :data="recipe.medicineList"
-    style="width: 60%"
     border
+    show-summary="true"
     empty-text="处方中没有药物"
     max-height="300">
     <el-table-column
@@ -39,15 +50,25 @@
     <el-table-column
       prop="medicine.price"
       label="单价"
-      width="160">
+      width="140">
     </el-table-column>
     <el-table-column
       prop="num"
       label="数量"
       >
     </el-table-column>
+    <el-table-column
+      prop="totalPrice"
+      label="金额"
+    >
+    </el-table-column>
   </el-table>
-  </div>
+    <div class="recipeLine">
+      <div class="textLine" style="margin-top: 5px"><b>应收金额:   </b>  {{recipe.money}} 元</div>
+
+    </div>
+
+  </el-card>
 </div>
 </template>
 
@@ -57,7 +78,8 @@
       data(){
         return{
           requestId:0,
-          recipe:{}
+          recipe:{},
+          o:{}
         }
       },methods:{
         getRecipeOne(requestId) {
@@ -74,7 +96,7 @@
       },mounted() {
         this.requestId = this.$route.path.split('/')[3];
         this.getRecipeOne(this.requestId);
-      }
+      },
     }
 </script>
 
@@ -82,8 +104,19 @@
 .textLine{
   padding: 10px 0;
   font-size: 16px;
+  flex:1;
+}
+
+.textLine2{
+  padding: 10px 0;
+  font-size: 16px;
+  flex:2;
 }
   .content{
-    margin-left: 40px; margin-top: 40px;
+   margin-top: 20px;width:66%;
+  }
+
+  .recipeLine {
+    width:100%;display:flex
   }
 </style>

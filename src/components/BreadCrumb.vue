@@ -1,6 +1,6 @@
 <template>
     <div>
-      <el-breadcrumb separator-class="el-icon-arrow-right" style="padding-top:12px ;font-size: 18px;">
+      <el-breadcrumb separator-class="el-icon-arrow-right" style="font-size: 18px; padding-top: 12px">
         <template v-if="breadList.length==2||breadList.length==3">
             <el-breadcrumb-item :to="{name:'see'}">首页</el-breadcrumb-item>
           <template v-if="breadList[1]!='home'">

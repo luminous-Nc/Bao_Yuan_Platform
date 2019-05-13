@@ -30,9 +30,9 @@
             <el-col span="6"></el-col>
           </el-row>
           <div style="text-align: center;font-size: 20px">{{patient.name}}</div>
-          <div style="padding:10px; text-align:center;font-size: 16px">{{patient.sex}}    {{patient.age}}岁</div>
+          <div style="padding:10px; text-align:center;font-size: 14px">{{patient.sex}}    {{patient.age}}岁</div>
           <el-divider style="margin-bottom: 5px;margin-top: 5px"></el-divider>
-          <div style="margin-left: 20px;margin-top:10px;font-size: 16px">
+          <div style="margin-left: 20px;margin-top:10px;font-size: 14px">
             <div class="info"><i class="el-icon-phone" ></i>{{patient.phone}}</div>
             <div class="info"><i class="el-icon-s-home"></i>{{patient.address}}</div>
           </div>
@@ -45,7 +45,7 @@
             || eachData.symptom.toLowerCase().includes(key.toLowerCase())
             || eachData.test.toLowerCase().includes(key.toLowerCase())
             || eachData.result.toLowerCase().includes(key.toLowerCase()))"
-            style="width: 100%"
+            style="width: 100% "
             stripe
             empty-text="此患者没有进行过就诊"
             height="480">
@@ -76,7 +76,7 @@
             </el-table-column>
             <el-table-column
               label="处方"
-              width="110">
+              width="100">
               <template slot-scope="scope">
                 <el-button v-if="diagnoses[scope.$index].recipe" type="text" @click="goRecipeInfo(scope.$index,scope.row)">查看处方</el-button>
                 <el-button v-else type="text" disabled>未开处方</el-button>
@@ -84,7 +84,6 @@
             </el-table-column>
             <el-table-column
               label="操作"
-              width="110"
               header-align="center"
               align="center">
               <template slot-scope="scope">

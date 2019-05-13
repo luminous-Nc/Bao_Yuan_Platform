@@ -103,10 +103,14 @@
       },
       fresh(){
         this.getRecipeAll()
+      },
+      goRecipeInfo(index,row) {
+        this.$router.push({path:'/pc/recipe/'+this.diagnoses[index].recipe.recipeId})
       }
     },mounted() {
       this.getRecipeAll();
-    }
+    },
+
   }
 </script>
 
