@@ -6,7 +6,7 @@
       <el-col span="22">
         <div style="float:right">
           <el-input
-            style="width: 160px;margin-left: 10px"
+            style="width: 170px;margin-left: 10px"
             v-model="key"
             size="small"
             clearable
@@ -42,7 +42,7 @@
 </template>
 
 <script>
-  import axios from 'axios'
+  import axios from 'axios/index'
   export default {
     data(){
       return {

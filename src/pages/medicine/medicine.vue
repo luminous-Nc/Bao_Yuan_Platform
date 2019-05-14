@@ -72,7 +72,7 @@
 </template>
 
 <script>
-  import axios from  'axios'
+  import axios from 'axios/index'
   export default {
     data() {
       return {
@@ -101,7 +101,7 @@
         this.getMedicineList();
       },
       back(){
-        this.$router.push({path:'/pc/home'})
+        this.$router.replace({path: '/pc/home'})
       }
     },
     computed:{

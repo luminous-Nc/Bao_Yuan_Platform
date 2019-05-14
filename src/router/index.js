@@ -1,15 +1,16 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/Home'
-import patient from '@/pages/patient'
-import diagnose from '@/pages/diagnose'
-import recipe from '@/pages/recipe'
+import patient from '@/pages/patient/patient'
+import diagnose from '@/pages/diagnose/diagnose'
+import recipe from '@/pages/recipe/recipe'
 import see from '@/pages/see'
-import medicine from '@/pages/medicine'
-import begin from '@/pages/begin'
-import patientInfo from '@/pages/patientInfo'
+import medicine from '@/pages/medicine/medicine'
+import begin from '@/pages/doctor/begin'
+import patientInfo from '@/pages/patient/patientInfo'
 import errorPage from '@/pages/errorPage'
-import recipeInfo from '@/pages/recipeInfo'
+import recipeInfo from '@/pages/recipe/recipeInfo'
+import seeDoctor from '@/pages/doctor/seeDoctor'
 
 Vue.use(Router)
 
@@ -32,7 +33,12 @@ export default new Router({
         },
         { path:'begin',
           name:'begin',
-          component:begin
+          component: begin,
+        },
+        {
+          path: 'seeDoctor',
+          name: 'seeDoctor',
+          component: seeDoctor,
         },
         {
           name:'patient',

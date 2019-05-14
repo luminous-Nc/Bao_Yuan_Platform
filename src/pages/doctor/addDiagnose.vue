@@ -1,10 +1,10 @@
 <template>
-    <h1>开始看病</h1>
+  <h1>加就诊</h1>
 </template>
 
 <script>
     export default {
-        name: "begin"
+      name: "addDiagnose"
     }
 </script>
 
