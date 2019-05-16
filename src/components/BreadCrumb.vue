@@ -24,7 +24,8 @@
             'patient': '患者信息',
             'diagnose': '就诊信息',
             'recipe':'处方信息',
-            'begin':'接诊'
+            'begin': '接诊',
+            'seeDoctor': '接诊'
           },
           breadList: [],
           pathUrl:'',

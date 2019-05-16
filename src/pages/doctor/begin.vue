@@ -52,14 +52,14 @@
       },
       newPatient(event) {
         this.step++;
-        this.$router.push('/pc/seeDoctor');
+        this.$router.push('/pc/seeDoctor/0');
         // if (event) {
         //   alert(event.target.tagName)
         // }
       },
       oldPatient(event) {
         this.step--;
-        this.$router.push('/pc/seeDoctor');
+        this.$router.push('/pc/seeDoctor/1');
         // if (event) {
         //   alert(event.target.tagName);
         // }

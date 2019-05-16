@@ -36,7 +36,7 @@ export default new Router({
           component: begin,
         },
         {
-          path: 'seeDoctor',
+          path: 'seeDoctor/:ifHasPatient',
           name: 'seeDoctor',
           component: seeDoctor,
         },

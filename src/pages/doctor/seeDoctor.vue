@@ -1,19 +1,19 @@
 <template>
   <div>
     <el-steps :active=step align-center>
-      <el-step title="步骤1" description="这是一段很长很长很长的描述性文字"></el-step>
-      <el-step title="步骤2" description="这是一段很长很长很长的描述性文字"></el-step>
-      <el-step title="步骤3" description="这是一段很长很长很长的描述性文字"></el-step>
-      <el-step title="步骤4" description="这是一段很长很长很长的描述性文字"></el-step>
+      <el-step title="步骤1" description="确定患者"></el-step>
+      <el-step title="步骤2" description="确定诊断信息"></el-step>
+      <el-step title="步骤3" description="开具处方"></el-step>
+      <el-step title="步骤4" description="完成"></el-step>
     </el-steps>
-    <div style="height: 400px">
-      <find-patient v-if="step==0"></find-patient>
+    <div style="height: 100% ;padding:0 30px">
+      <define-patient v-if="step==0" :patientProp=patient :pageType=ifHasPatient></define-patient>
       <add-diagnose v-if="step==1"></add-diagnose>
       <add-recipe v-if="step==2"></add-recipe>
-      <div v-if="step==3">都没啦</div>
+      <div v-if="step==3">搞完了</div>
     </div>
 
-    <div style="margin-top: 8px;display:flex;">
+    <div style="margin-top: 8px;padding:0 30px;display:flex;">
       <div style="flex:1">
         <el-button size="small" @click="lastStep" plain icon="el-icon-back">上一步</el-button>
       </div>
@@ -29,20 +29,31 @@
 </template>
 
 <script>
-  import findPatient from '@/pages/doctor/findPatient.vue'
+  import axios from 'axios'
   import addDiagnose from '@/pages/doctor/addDiagnose.vue'
   import addRecipe from '@/pages/doctor/addRecipe.vue'
+  import definePatient from "@/pages/doctor/definePatient.vue";
 
   export default {
     name: "seeDoctor",
     data() {
       return {
-        step: 0
+        ifHasPatient: 0,
+        step: 0,
+        patient: {
+          id: '',
+          name: '',
+          phone: '',
+          address: '',
+          age: '',
+          sex: '',
+          diagnose: []
+        }
       }
     }, components: {
-      findPatient,
+      definePatient,
       addDiagnose,
-      addRecipe
+      addRecipe,
     }, methods: {
       lastStep() {
         if (this.step != 0) {
@@ -51,9 +62,26 @@
       },
       nextStep() {
         if (this.step != 3) {
+          if (this.step == 0 && this.ifHasPatient == 0) {
+            this.createNewPatient();
+          }
           this.step++
         }
+      },
+
+
+      createNewPatient() {
+        axios.post("/add/addPatient", {
+          newpatient: this.patient
+        }).then((result) => {
+          var res = result.data;
+          this.patient = res.result.createResult;
+        });
       }
+
+    }, mounted() {
+      this.ifHasPatient = this.$route.params.ifHasPatient;
+
     }
   }
 </script>
