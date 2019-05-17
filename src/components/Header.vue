@@ -1,10 +1,17 @@
 <template>
   <el-header height="30" id="Top">
     <div class="headerRow">
-      <div style="flex: 1"><el-button class="headerButton" type="text">Bao Yuan Tang</el-button></div>
-      <div style="flex: 4"><bread-crumb style="height:100%"></bread-crumb></div>
       <div style="flex: 1">
-        <div style="float:right;width:66% ;display: flex">
+        <el-button style="padding-left: 20px" class="headerButton" type="text">Bao Yuan Tang</el-button>
+      </div>
+      <div style="flex: 3">
+        <bread-crumb style="height:100%"></bread-crumb>
+      </div>
+      <div style="flex: 1">
+        <div style="float:right;padding-right:12px;width:88% ;display: flex">
+          <el-col style="flex: 2">
+            <el-button type="text" style="text-align:center;color: #eeeeee;font-size: 18px">{{username}}</el-button>
+          </el-col>
           <el-col style="flex: 1"><el-button  type="text" style="color: #eeeeee;font-size: 18px">设置</el-button></el-col>
           <el-col style="flex: 1"><el-button  type="text" style="color: #eeeeee;font-size: 18px">帮助</el-button></el-col>
         </div>
@@ -27,6 +34,11 @@
     methods: {
       handleSelect(key, keyPath) {
         console.log(key, keyPath);
+      }
+    },
+    computed: {
+      username() {
+        return this.$store.state.username;
       }
     }
   }

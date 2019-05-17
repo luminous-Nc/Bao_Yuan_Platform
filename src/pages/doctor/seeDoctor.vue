@@ -8,7 +8,7 @@
     </el-steps>
     <div style="height: 100% ;padding:0 30px">
       <define-patient v-if="step==0" :patientProp=patient :pageType=ifHasPatient></define-patient>
-      <add-diagnose v-if="step==1"></add-diagnose>
+      <add-diagnose v-if="step==1" :patientProp=patient></add-diagnose>
       <add-recipe v-if="step==2"></add-recipe>
       <div v-if="step==3">搞完了</div>
     </div>
@@ -47,8 +47,9 @@
           address: '',
           age: '',
           sex: '',
-          diagnose: []
-        }
+          diagnose: [],
+        },
+        test: {},
       }
     }, components: {
       definePatient,
@@ -76,6 +77,8 @@
         }).then((result) => {
           var res = result.data;
           this.patient = res.result.createResult;
+          this.test = res.result.createResult;
+          this.patient._id = res.result._id;
         });
       }
 

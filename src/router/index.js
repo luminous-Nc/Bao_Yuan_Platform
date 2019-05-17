@@ -11,6 +11,7 @@ import patientInfo from '@/pages/patient/patientInfo'
 import errorPage from '@/pages/errorPage'
 import recipeInfo from '@/pages/recipe/recipeInfo'
 import seeDoctor from '@/pages/doctor/seeDoctor'
+import login from '@/login'
 
 Vue.use(Router)
 
@@ -69,6 +70,10 @@ export default new Router({
           component:errorPage
         }
       ]
+    },
+    {
+      path: '/login',
+      component: login
     },
     {
       path:'*',

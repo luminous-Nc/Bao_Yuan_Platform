@@ -1,6 +1,7 @@
 <template>
   <div>
-  <span class="demonstration">为了您的健康</span>
+    <h1>{{username}} :</h1>
+    <h3>欢迎欢迎 热烈欢迎</h3>
 <!--  <el-carousel height="200px">-->
 <!--    <el-carousel-item v-for="item in imgList" :key="item.id">-->
 <!--      <el-row type="flex"  justify="space-between">-->
@@ -28,7 +29,12 @@
             ]
 
           }
+        },
+      computed: {
+        username() {
+          return this.$store.state.username;
         }
+      }
     }
 </script>
 

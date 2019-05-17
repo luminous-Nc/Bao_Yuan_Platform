@@ -2,16 +2,25 @@
   <div>
     <div v-if="pageType==0">
       <h1>新建患者</h1>
-      <el-input v-model="patientProp.name" placeholder="姓名"></el-input>
-      <el-radio v-model="patientProp.sex" label="男">男</el-radio>
-      <el-radio v-model="patientProp.sex" label="女">女</el-radio>
-      <el-input v-model="patientProp.age" placeholder="年龄"></el-input>
-      <el-input v-model="patientProp.address" placeholder="住址"></el-input>
-      <el-input v-model="patientProp.phone" placeholder="联系电话"></el-input>
+      <el-input v-model="patientProp.name" placeholder="姓名" clearable></el-input>
+      <el-radio v-model="patientProp.sex" label="男" clearable>男</el-radio>
+      <el-radio v-model="patientProp.sex" label="女" clearable>女</el-radio>
+      <el-input v-model="patientProp.age" placeholder="年龄" clearable></el-input>
+      <el-input v-model="patientProp.address" placeholder="住址" clearable></el-input>
+      <el-input v-model="patientProp.phone" placeholder="联系电话" clearable></el-input>
     </div>
 
     <div v-if="pageType==1">
-      <el-input v-model="key" placeholder="请输入姓名"></el-input>
+      <el-autocomplete
+        class="inline-input"
+        v-model="queryName"
+        :fetch-suggestions="querySearch"
+        placeholder="请输入内容"
+        value-key="name"
+        :trigger-on-focus="false"
+        highlight-first-item
+        @select="selectPatient">
+      </el-autocomplete>
     </div>
   </div>
 </template>
@@ -28,7 +37,24 @@
     data() {
       return {
         patientList: [],
-        maxId: 3
+        maxId: 0,
+        aaa: [],
+        queryName: ''
+      }
+    },
+    methods: {
+      querySearch(key, cb) {
+        let results = this.patientList.filter(data => data.name.toLowerCase().includes(key.toLowerCase()));
+        this.aaa = results;
+        cb(results);
+      },
+      selectPatient(item) {
+        this.patientProp = item;
+        // this.patientProp.name = item.name;
+        // this.patientProp.sex = item.sex;
+        // this.patientProp.age = item.age;
+        // this.patientProp.id = item.id;
+        // this.patientProp.phone = item.phone;
       }
     },
     mounted() {
