@@ -26,6 +26,13 @@
     },
     methods: {
       login() {
+        if (this.key == '') {
+          this.$message({
+            message: '请输入密码',
+            type: 'warning'
+          });
+          return;
+        }
         axios.post("/user/login", {
           password: this.key
         }).then((response) => {
@@ -38,17 +45,13 @@
           } else if (res.status == '1') {
             this.key = '';
             this.$message({
-              message: '密码错误',
+              message: '密码不正确',
               type: 'warning'
             });
           } else {
             this.$message.error('服务器错误，它可能开小差了');
           }
         })
-        // if (this.key=='123456'){
-        //   this.$store.commit("changeUsername","admin");
-        //   this.$router.replace('/pc/home');
-        //}
       }
     },
     computed: {

@@ -92,7 +92,7 @@
         requestId:'',
       }
     },methods:{
-      getRecipeAll() {
+      getDiagnoseAll() {
         axios.post("/data/diagnose/getAll").then((result) => {
           var res = result.data;
           this.diagnoses = res.result.diagnoseDatas;
@@ -108,7 +108,7 @@
         this.$router.push({path:'/pc/recipe/'+this.diagnoses[index].recipe.recipeId})
       }
     },mounted() {
-      this.getRecipeAll();
+      this.getDiagnoseAll();
     },
 
   }

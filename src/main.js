@@ -18,7 +18,33 @@ const store = new Vuex.Store({
   state: {
     username: 'ada Wang',
     ifLogin: false,
-    targetPatient: {}
+    step: 0,
+    targetPatient: {  //这次来看病的病人
+      id: '',
+      name: '',
+      phone: '',
+      address: '',
+      age: '',
+      sex: '',
+      diagnoses: [],
+    },
+    targetDiagnose: {  //这个病人的这次就诊
+      diagnoseId: 0,
+      diagnoseTime: '',
+      symptom: '',
+      test: '',
+      result: '',
+      patient: '',
+      recipe: ''
+    },
+    targetRecipe: {  //这次就诊的处方
+      recipeId: '',
+      recipeTime: '',
+      medicineList: [],
+      money: 0,
+      patient: '',
+      diagnose: ''
+    }
   },
   mutations: {
     changeUsername(state, nickName) {
@@ -26,6 +52,27 @@ const store = new Vuex.Store({
     },
     changeIfLogin(state, newVal) {
       state.ifLogin = newVal;
+    },
+    updatePatient(state, newVal) {
+      state.targetPatient = newVal;
+    },
+    updatePatientDiagnose(state, newVal) {
+      state.targetPatient['diagnoses'] = newVal;
+    },
+    updateDiagnose(state, newVal) {
+      state.targetDiagnose = newVal;
+    },
+    updateRecipe(state, newVal) {
+      state.targetRecipe = newVal;
+    },
+    zeroStep(state) {
+      state.step = 0;
+    },
+    nextStep(state) {
+      state.step++;
+    },
+    lastStep(state) {
+      state.step--;
     }
   }
 });

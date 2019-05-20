@@ -21,7 +21,7 @@
 
     <el-row gutter="10">
       <el-col span="6">
-        <el-card :body-style="{padding:'10px'}">
+        <el-card>
           <el-row type="flex" justify="center" >
             <el-col span="6"> </el-col>
             <el-col span="12"><img v-if="patient.sex=='男'" src="@/assets/man.png" style="width:100%;height:100%"></img>
@@ -36,7 +36,7 @@
             <div class="info"><i class="el-icon-phone" ></i>{{patient.phone}}</div>
             <div class="info"><i class="el-icon-s-home"></i>{{patient.address}}</div>
           </div>
-        </el-card >
+        </el-card>
       </el-col>
       <el-col span="18">
         <el-card>
@@ -122,12 +122,6 @@
             this.diagnoses = this.patient.diagnoses;
           });
         },
-          // let a;
-          // for (a=0;a<this.diagnoses.length;a++{
-          //   //a.diagnoseTime = a.diagnoseTime.format('yyyy-MM-dd');
-          //   this.m = this.diagnoses[a].diagnoseTime.splice(10);
-          // }
-
           back(){
             this.$router.replace({path:'/pc/patient'})
           },
@@ -138,14 +132,15 @@
       },mounted() {
           this.requestId = this.$route.path.split('/')[3];
           this.getPatientInfo(this.requestId);
-
       }
     }
 </script>
 
 <style scoped>
   .info {margin-bottom: 10px;
-          margin-right:10px}
+    margin-right: 10px;
+    margin-top: 4px
+  }
   .el-icon-phone{margin-right: 10px}
   .el-icon-s-home{margin-right:10px}
   .el-divider--horizontal {

@@ -51,18 +51,16 @@
         this.$router.replace('/pc/home');
       },
       newPatient(event) {
-        this.step++;
+        this.$store.commit("updatePatient", {});
+        this.$store.commit("updateDiagnose", {});
+        this.$store.commit("zeroStep");
         this.$router.push('/pc/seeDoctor/0');
-        // if (event) {
-        //   alert(event.target.tagName)
-        // }
       },
       oldPatient(event) {
-        this.step--;
+        this.$store.commit("updatePatient", {});
+        this.$store.commit("updateDiagnose", {});
+        this.$store.commit("zeroStep");
         this.$router.push('/pc/seeDoctor/1');
-        // if (event) {
-        //   alert(event.target.tagName);
-        // }
       }
     }
   }

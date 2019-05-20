@@ -16,6 +16,7 @@
 </template>
 
 <script>
+  import axios from 'axios'
   import NavHeader from '@/components/Header.vue'
   import Sidebar from '@/components/Siderbar.vue'
     export default {
@@ -30,21 +31,16 @@
         NavHeader,
         Sidebar
       },mounted() {
+        this.checkLogin();
 
         this.firstHeight = `${document.documentElement.clientHeight}`
         this.secondHeight = this.$refs.header.$el.style.height;
+
         window.onresize = function temp() {
           this.firstHeight = `${document.documentElement.clientHeight}`
           this.secondHeight = this.$refs.header.$el.style.height;
-          this.checkLogin();
         };
-        if (this.$store.state.ifLogin == false) {
-          this.$message({
-            message: '当前未登录 返回登陆页面',
-            type: 'warning'
-          });
-          this.$router.replace("/login")
-        }
+
       },
         watch: {
           firstHeight:function (newVal, oldVal) {
@@ -54,14 +50,24 @@
           changeFixed(firstHeight){
           this.$refs.topContainer.$el.style.height = firstHeight+'px';
           this.$refs.secondContainer.$el.style.height = (firstHeight-50)+'px';
-          }, checkLogin() {
-          axios.get('/user/checkLogin').then((response) => {
+          },
+
+        checkLogin() {
+
+          axios.post("/user/checkLogin").then((response) => {
             let res = response.data;
             if (res.status == '0') {
               this.$store.commit("changeIfLogin", true);
               this.$store.commit("changeUsername", res.result.username);
             } else {
-
+              this.$store.commit("changeIfLogin", false);
+            }
+            if (this.$store.state.ifLogin == false) {
+              this.$message({
+                message: '当前未登录 返回登陆页面',
+                type: 'warning'
+              });
+              this.$router.replace("/login")
             }
           })
         }
