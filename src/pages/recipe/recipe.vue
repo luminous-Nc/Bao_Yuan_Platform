@@ -21,7 +21,7 @@
     </el-row>
 
 
-    <el-row v-for="List in recipesCollection"  gutter="20" style="margin-bottom:10px;">
+    <el-row v-for="List in recipesCollection" :gutter="20" style="margin-bottom:10px;">
       <el-col v-for="item in List" :key="item.recipeId" :span="8">
         <el-card>
           <div slot="header" style="display:flex">

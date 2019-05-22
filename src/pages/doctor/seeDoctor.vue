@@ -29,7 +29,7 @@
     name: "seeDoctor",
     data() {
       return {
-        ifHasPatient: 0,
+        ifHasPatient: '0',
       }
     },
     computed: {

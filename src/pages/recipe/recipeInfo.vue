@@ -1,12 +1,10 @@
 <template>
 <div>
   <el-row style="margin-bottom: 8px" type="flex" justify="left">
-    <el-col span="2"><el-button size="small" @click = "back" plain icon="el-icon-back">返回</el-button></el-col>
-    <el-col span="22">
-      <div style="float:right">
-        <el-button type="primary" size="small"  icon="el-icon-plus" plain>修改</el-button>
-        <el-button @click="fresh" type="success" size = "small"icon="el-icon-refresh" plain>刷新</el-button>
-      </div>
+    <el-col :span="2">
+      <el-button size="small" @click="back" plain icon="el-icon-back">返回</el-button>
+    </el-col>
+    <el-col :span="22">
     </el-col>
   </el-row>
   <el-card class="content">
@@ -38,7 +36,7 @@
   <el-table
     :data="recipe.medicineList"
     border
-    show-summary="true"
+    :show-summary="true"
     empty-text="处方中没有药物"
     max-height="300">
     <el-table-column
@@ -100,6 +98,8 @@
         },
         back(){
           this.$router.go(-1);
+        },
+        fresh() {
         }
       },mounted() {
         this.requestId = this.$route.path.split('/')[3];

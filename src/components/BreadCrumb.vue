@@ -31,8 +31,6 @@
           pathUrl:'',
         };
       },
-      mounted:{
-      },
       methods: {
         goLink(bread) {
           this.$router.push('/pc/'+bread);

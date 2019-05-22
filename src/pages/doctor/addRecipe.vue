@@ -25,7 +25,7 @@
 
       </el-card>
       <el-card
-        style="flex: 3;margin-left:8px">{{a}}
+        style="flex: 3;margin-left:8px">
         <el-table
           :data="tempMedicineList"
           stripe

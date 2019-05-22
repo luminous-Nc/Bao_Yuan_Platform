@@ -82,7 +82,7 @@
   export default {
     name: "definePatient",
     props: {
-      pageType: Number,
+      pageType: String,
     },
     data() {
       return {

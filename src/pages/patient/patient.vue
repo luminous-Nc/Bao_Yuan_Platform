@@ -21,7 +21,7 @@
       </el-col>
     </el-row>
 
-    <el-row v-for="patientListItem in patientListCollection" :key ="id" gutter="20" style="margin-bottom: 10px;">
+    <el-row v-for="patientListItem in patientListCollection" :key="id" :gutter="20" style="margin-bottom: 10px;">
       <el-col v-for="item in patientListItem" :key="item.name" :span="6">
         <el-card :body-style="{ padding: '8px' }">
           <el-row type="flex" justify="center" >
@@ -31,7 +31,7 @@
             <el-col :span="4"></el-col>
           </el-row>
         <div style="text-align:center;margin-bottom:5px">{{item.name}}</div>
-        <el-row gutter="8" type="flex" justify="center">
+          <el-row :gutter="8" type="flex" justify="center">
           <el-button @click="goPatientInfo(item)" size="mini" type="info" plain icon="el-icon-reading" circle></el-button>
           <el-button @click="editPatient(item)" size="mini" type="warning" plain icon="el-icon-edit-outline"
                      circle></el-button>
@@ -86,6 +86,7 @@
           showDialog: false,
           formLabelWidth: '120px',
           dialogHead: '',
+          id: 0,
           rules: {
             name: [
               {required: true, message: '请输入患者姓名', trigger: 'blur'}

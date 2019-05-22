@@ -67,7 +67,7 @@
         width="110">
         <template slot-scope="scope">
           <el-button v-if="diagnoses[scope.$index].recipe" type="text" @click="goRecipeInfo(scope.$index,scope.row)">查看处方</el-button>
-          <el-button v-else type="text" disabled>未开处方</el-button>
+          <el-button v-else type="text" disabled>没有处方</el-button>
         </template>
       </el-table-column>
       <el-table-column
@@ -115,7 +115,8 @@
         diagnoses:[],
         key:'',
         requestId:'',
-        showDialog: false
+        showDialog: false,
+        formLabelWidth: '120px'
       }
     },methods:{
       getDiagnoseAll() {

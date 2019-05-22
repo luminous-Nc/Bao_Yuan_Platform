@@ -78,10 +78,10 @@
           this.$store.commit("updatePatient", tempPatient);
           //更新了diagnose后要把id添加进patient的diagnose数组里
           this.$store.commit("nextStep");
-        });
-        this.$message({
-          message: '患者' + this.patient.name + '的就诊记录已经创建!',
-          type: 'success'
+          this.$message({
+            message: '患者' + this.$store.state.targetPatient.name + '的就诊记录已经创建!',
+            type: 'success'
+          });
         });
       }
       }

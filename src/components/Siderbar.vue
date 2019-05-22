@@ -15,7 +15,7 @@
       <i class="el-icon-menu"></i>
       <span slot="title">接诊</span>
     </el-menu-item>
-    <el-submenu>
+    <el-submenu index="2">
       <template slot="title">
         <i class="el-icon-location"></i>
         <span>患者</span>
@@ -26,7 +26,7 @@
         <el-menu-item index="/pc/recipe">处方信息</el-menu-item>
       </el-menu-item-group>
     </el-submenu>
-    <el-submenu>
+    <el-submenu index="3">
       <template slot="title">
         <i class="el-icon-location"></i>
         <span>药品</span>
