@@ -35,10 +35,6 @@
         <el-menu-item index="/pc/medicine">药品信息</el-menu-item>
       </el-menu-item-group>
     </el-submenu>
-    <el-menu-item disabled>
-      <i class="el-icon-document"></i>
-      <span slot="title">米奇妙妙屋</span>
-    </el-menu-item>
   </el-menu>
 </template>
 

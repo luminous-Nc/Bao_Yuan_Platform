@@ -1,19 +1,20 @@
 <template>
   <div>
     <el-row style="margin-bottom: 8px" type="flex" justify="left">
-      <el-col span="2"><el-button size="small" @click = "back" plain icon="el-icon-back">返回</el-button></el-col>
+      <el-col :span="2">
+        <el-button size="small" @click="back" plain icon="el-icon-back">返回</el-button>
+      </el-col>
 
-      <el-col span="22">
+      <el-col :span="22">
         <div style="float:right">
           <el-input
-            style="width: 160px;margin-left: 10px"
+            style="width: 160px;margin: 0 20px"
             v-model="key"
             size="small"
             clearable
             placeholder="可搜索任意特征">
             <i slot="prefix" class="el-input__icon el-icon-search"></i>
           </el-input>
-          <el-button type="primary" size="small"  icon="el-icon-plus" plain>添加</el-button>
           <el-button @click="fresh" type="success" size = "small"icon="el-icon-refresh" plain>刷新</el-button>
         </div>
       </el-col>
@@ -35,6 +36,7 @@
         sortable
         width="110">
       </el-table-column>
+
       <el-table-column
         prop="patient.name"
         fixed="left"
@@ -74,11 +76,33 @@
         header-align="center"
         align="center">
         <template slot-scope="scope">
-          <el-button   size="mini"plain icon="el-icon-edit-outline" circle></el-button>
-          <el-button   size="mini" type="danger" icon="el-icon-delete" plain circle ></el-button>
+          <el-button @click="changeDiagnose(scope.$index)" size="mini" plain icon="el-icon-edit-outline"
+                     circle></el-button>
+          <el-button @click="deleteDiagnose(scope.$index)" size="mini" type="danger" icon="el-icon-delete" plain
+                     circle></el-button>
         </template>
       </el-table-column>
     </el-table>
+
+    <el-dialog title="修改药品" :visible.sync="showDialog" :close-on-click-modal="false">
+      <el-form :model="tempDiagnose" ref="dialogForm" style="width: 66%">
+        <el-form-item label="症状" :label-width="formLabelWidth" prop="name">
+          <el-input v-model="tempDiagnose.symptom" type="textarea" autosize clearable autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="化验结果" :label-width="formLabelWidth" prop="price">
+          <el-input v-model.number="tempDiagnose.test" type="textarea" autosize clearable autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="诊断" :label-width="formLabelWidth" prop="num">
+          <el-input v-model.number="tempDiagnose.result" type="textarea" autosize clearable
+                    autocomplete="off"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="showDialog = false">取 消</el-button>
+        <el-button type="primary" @click="sure('dialogForm')">确 定</el-button>
+      </div>
+    </el-dialog>
+
   </div>
 </template>
 
@@ -87,13 +111,15 @@
   export default {
     data(){
       return {
+        tempDiagnose: {},
         diagnoses:[],
         key:'',
         requestId:'',
+        showDialog: false
       }
     },methods:{
       getDiagnoseAll() {
-        axios.post("/data/diagnose/getAll").then((result) => {
+        axios.get("/data/diagnose/getAll").then((result) => {
           var res = result.data;
           this.diagnoses = res.result.diagnoseDatas;
         });
@@ -106,6 +132,41 @@
       },
       goRecipeInfo(index,row) {
         this.$router.push({path:'/pc/recipe/'+this.diagnoses[index].recipe.recipeId})
+      },
+      deleteDiagnose(index) {
+        let id = this.diagnoses[index]._id;
+        this.$confirm('确定要删除这次就诊记录吗?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          axios.post("/delete/deleteDiagnose", {
+            id: id
+          }).then((result) => {
+            this.diagnoses.splice(index, 1);
+            this.$message({
+              type: 'success',
+              message: '删除成功'
+            });
+          });
+        }).catch(() => {
+        })
+      },
+      changeDiagnose(index) {
+        this.tempDiagnose = JSON.parse(JSON.stringify(this.diagnoses[index]));
+        this.showDialog = true;
+      },
+      sure(formName) {
+        axios.post('/change/changeDiagnose', {
+          diagnose: this.tempDiagnose
+        }).then((result) => {
+          this.$message({
+            message: `就诊记录已经修改`,
+            type: 'success'
+          });
+        });
+        this.getDiagnoseAll();
+        this.showDialog = false;
       }
     },mounted() {
       this.getDiagnoseAll();

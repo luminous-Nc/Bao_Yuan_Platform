@@ -13,7 +13,9 @@ module.exports = {
     proxyTable: {
       '/data/*': {target: 'http://localhost:3000'},
       '/add/*': {target: 'http://localhost:3000'},
-      '/user/*': {target: 'http://localhost:3000'}
+      '/user/*': {target: 'http://localhost:3000'},
+      '/change/*': {target: 'http://localhost:3000'},
+      '/delete/*': {target: 'http://localhost:3000'}
     },
 
     // Various Dev Server settings

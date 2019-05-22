@@ -21,13 +21,12 @@
     export default {
         data(){
           return {
-            imgList: [
-              {id: 0, name: '1',idView: require('../assets/snow.jpg')},
-              {id: 1, name: '2', idView: require('../assets/sea.jpg')},
-              {id: 2, name: '3', idView: require('../assets/sky.jpg')},
-              {id: 2, name: '4', idView: require('../assets/wave.jpg')}
-            ]
-
+            // imgList: [
+            //   {id: 0, name: '1',idView: require('../assets/snow.jpg')},
+            //   {id: 1, name: '2', idView: require('../assets/sea.jpg')},
+            //   {id: 2, name: '3', idView: require('../assets/sky.jpg')},
+            //   {id: 2, name: '4', idView: require('../assets/wave.jpg')}
+            // ]
           }
         },
       computed: {

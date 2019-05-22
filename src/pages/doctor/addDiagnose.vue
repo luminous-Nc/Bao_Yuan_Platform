@@ -43,7 +43,7 @@
       },
     mounted() {
       this.diagnose = this.$store.state.targetDiagnose;
-      this.diagnose.patient = this.$store.state.targetPatient.id;
+      this.diagnose.patient = this.$store.state.targetPatient._id;
       let nowDate = new Date();
       let year = nowDate.getFullYear();
       let month = nowDate.getMonth() + 1 < 10 ?
@@ -52,30 +52,37 @@
         .getDate();
       this.diagnose.diagnoseTime = year + "-" + month + "-" + day;  // "2018-03-26"
 
-      axios.post("/data/diagnose/getAll").then((result) => {
+      axios.get("/data/diagnose/getAll").then((result) => {
         var res = result.data;
         this.diagnoseList = res.result.diagnoseDatas;
-        this.maxId = Math.max.apply(Math, this.diagnoseList.map(function (o) {
-          return o.diagnoseId
-        }));
-        this.diagnose.diagnoseId = this.maxId + 1;
+        if (this.diagnoseList.length > 0) {
+          this.maxId = Math.max.apply(Math, this.diagnoseList.map(function (o) {
+            return o.diagnoseId
+          }));
+          this.diagnose.diagnoseId = this.maxId + 1;
+        } else {
+          this.diagnose.diagnoseId = 100001;
+        }
       })
     },
     methods: {
       nextStep() {
-        // axios.post("/add/addEmptyRecipe")
-        // axios.post("/add/addDiagnose",{
-        //   newDiagnose:this.diagnose
-        // }).then((result)=> {
-        //   var res = result.data;
-        //   this.diagnose['_id'] = res.result.createResult._id;
-        //   this.$store.commit("updateDiagnose",this.diagnose);
-        //   this.$store.commit("nextStep");
-        // })
-        this.$message.error("下一步");
-        this.$store.commit("updateDiagnose", this.diagnose);
-        this.$store.commit("nextStep");
-
+        axios.post("/add/addDiagnose", {  //先创建就诊记录
+          newDiagnose: this.diagnose
+        }).then((result) => {
+          var res = result.data;
+          this.diagnose['_id'] = res.result.createResult._id;
+          this.$store.commit("updateDiagnose", this.diagnose);
+          var tempPatient = this.$store.state.targetPatient;
+          tempPatient.diagnoses.push(this.diagnose._id);
+          this.$store.commit("updatePatient", tempPatient);
+          //更新了diagnose后要把id添加进patient的diagnose数组里
+          this.$store.commit("nextStep");
+        });
+        this.$message({
+          message: '患者' + this.patient.name + '的就诊记录已经创建!',
+          type: 'success'
+        });
       }
       }
     }

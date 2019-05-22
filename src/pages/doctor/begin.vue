@@ -1,11 +1,11 @@
 <template>
   <div>
     <el-row style="margin-bottom: 8px" type="flex" justify="left">
-      <el-col span="2">
+      <el-col :span="2">
         <el-button size="small" @click="back" plain icon="el-icon-back">返回</el-button>
       </el-col>
 
-      <el-col span="22">
+      <el-col :span="22">
 
       </el-col>
     </el-row>
@@ -13,11 +13,11 @@
       <el-card class="button_card">
         <div v-on:click="newPatient">
           <el-row type="flex" justify="center">
-            <el-col span="6"></el-col>
-            <el-col span="12">
+            <el-col :span="6"></el-col>
+            <el-col :span="12">
               <img src="@/assets/first.png" style="width:100%;height:100%"></img>
             </el-col>
-            <el-col span="6"></el-col>
+            <el-col :span="6"></el-col>
           </el-row>
           <div style="text-align: center;font-size: 22px">初诊</div>
         </div>
@@ -26,11 +26,11 @@
       <el-card class="button_card">
         <div v-on:click="oldPatient">
           <el-row type="flex" justify="center">
-            <el-col span="6"></el-col>
-            <el-col span="12">
+            <el-col :span="6"></el-col>
+            <el-col :span="12">
               <img src="@/assets/second.png" style="width:100%;height:100%"></img>
             </el-col>
-            <el-col span="6"></el-col>
+            <el-col :span="6"></el-col>
           </el-row>
           <div style="text-align: center;font-size: 22px">续诊</div>
         </div>

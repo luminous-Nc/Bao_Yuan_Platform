@@ -1,19 +1,20 @@
 <template>
   <div>
     <el-row style="margin-bottom:10px" type="flex" justify="left">
-      <el-col span="2"><el-button size="small" @click = "back" plain icon="el-icon-back">返回</el-button></el-col>
+      <el-col :span="2">
+        <el-button size="small" @click="back" plain icon="el-icon-back">返回</el-button>
+      </el-col>
 
-      <el-col span="22">
+      <el-col :span="22">
         <div style="float:right">
           <el-input
-            style="width: 170px;margin-left: 10px"
+            style="width: 170px;margin: 0 20px"
             v-model="key"
             size="small"
             clearable
             placeholder="按日期或姓名搜索">
             <i slot="prefix" class="el-input__icon el-icon-search"></i>
           </el-input>
-          <el-button type="primary" size="small"  icon="el-icon-plus" plain>添加</el-button>
           <el-button @click="fresh" type="success" size = "small"icon="el-icon-refresh" plain>刷新</el-button>
         </div>
       </el-col>
@@ -21,7 +22,7 @@
 
 
     <el-row v-for="List in recipesCollection"  gutter="20" style="margin-bottom:10px;">
-      <el-col v-for="item in List" :key="item.recipeId" span="8">
+      <el-col v-for="item in List" :key="item.recipeId" :span="8">
         <el-card>
           <div slot="header" style="display:flex">
             <span style="flex:8">{{item.recipeTime}}   {{item.patient.name}}</span>
@@ -32,8 +33,10 @@
             <div style="font-size: 16px;flex:2; color:#4FA5FE"> x {{o.num}} </div>
           </div>
           <div style="margin-top: 1px ;margin-bottom:5px; float: right">
-            <el-button  type="info" size="mini" plain icon="el-icon-edit-outline" circle></el-button>
-            <el-button type="danger" size="mini"plain icon="el-icon-delete" circle></el-button>
+            <el-button type="info" @click="changeRecipe(item)" size="mini" plain icon="el-icon-edit-outline"
+                       circle></el-button>
+            <el-button type="danger" @click="deleteRecipe(item) " size="mini" plain icon="el-icon-delete"
+                       circle></el-button>
           </div>
         </el-card>
       </el-col>
@@ -54,7 +57,7 @@
       }
     },methods:{
       getRecipeAll() {
-        axios.post("/data/recipe/getAll").then((result) => {
+        axios.get("/data/recipe/getAll").then((result) => {
           var res = result.data;
           this.orginalRecipes = res.result.recipeDatas;
           this.recipes = this.orginalRecipes;
@@ -73,7 +76,7 @@
           threeElements.push(this.recipes[i]);
           if(i==this.recipes.length-1){
             this.recipesCollection.push(threeElements)
-            threeElements = [];//清不清无所谓但是还是清了吧
+            threeElements = [];
           }
           i++;
         }
@@ -86,6 +89,29 @@
       },
       fresh(){
         this.getRecipeAll()
+      },
+      changeRecipe(item) {
+        this.$message.error('业务逻辑上不应该对处方进行更改');
+      },
+      deleteRecipe(item) {
+        this.$confirm('确定要删除这张处方吗?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          axios.post("/delete/deleteRecipe", {
+            id: item._id
+          }).then((result) => {
+            var index = this.recipes.indexOf(item);
+            this.recipes.splice(index, 1);
+            this.dataForGraph();
+            this.$message({
+              type: 'success',
+              message: '删除成功'
+            });
+          });
+        }).catch(() => {
+        })
       }
     },mounted() {
       this.getRecipeAll();

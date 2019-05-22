@@ -26,7 +26,7 @@ const store = new Vuex.Store({
       address: '',
       age: '',
       sex: '',
-      diagnoses: [],
+      diagnoses: [{}],
     },
     targetDiagnose: {  //这个病人的这次就诊
       diagnoseId: 0,
@@ -35,7 +35,6 @@ const store = new Vuex.Store({
       test: '',
       result: '',
       patient: '',
-      recipe: ''
     },
     targetRecipe: {  //这次就诊的处方
       recipeId: '',
@@ -61,9 +60,13 @@ const store = new Vuex.Store({
     },
     updateDiagnose(state, newVal) {
       state.targetDiagnose = newVal;
+      //state.targetPatient.diagnoses.push(newVal._id);
     },
     updateRecipe(state, newVal) {
       state.targetRecipe = newVal;
+    },
+    addRecipeId(state, newVal) {
+      state.targetDiagnose.recipe = newVal;
     },
     zeroStep(state) {
       state.step = 0;

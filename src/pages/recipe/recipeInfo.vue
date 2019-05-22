@@ -59,7 +59,7 @@
     </el-table-column>
     <el-table-column
       prop="totalPrice"
-      label="金额"
+      label="小计"
     >
     </el-table-column>
   </el-table>
@@ -88,6 +88,14 @@
           }).then((result) => {
             var res = result.data;
             this.recipe = res.result.recipeDatas;
+            if (this.recipe.diagnose == null) {
+              this.$message.error("此处方的病历被删除了");
+              this.recipe.diagnose = {
+                symptom: '病历被删除',
+                test: '病历被删除',
+                result: '病历被删除'
+              }
+            }
           });
         },
         back(){
@@ -96,6 +104,7 @@
       },mounted() {
         this.requestId = this.$route.path.split('/')[3];
         this.getRecipeOne(this.requestId);
+
       },
     }
 </script>
@@ -113,7 +122,8 @@
   flex:2;
 }
   .content{
-   margin-top: 20px;width:66%;
+    margin-top: 20px;
+    width: 70%;
   }
 
   .recipeLine {

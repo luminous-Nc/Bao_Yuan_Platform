@@ -76,7 +76,7 @@
       }
     },
     mounted() {
-      axios.post("/data/patient/getOneInfo", {
+      axios.post("/data/patient/getOne", {
         id: this.$store.state.targetPatient.id
       }).then((result) => {
         var res = result.data;

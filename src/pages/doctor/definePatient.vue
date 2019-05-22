@@ -141,31 +141,33 @@
 
         }
         if (this.pageType == 1) {
-          if (this.patient.name != '') {
+          if (JSON.stringify(this.patient) == "{}") {
+            this.$message.error("请确定患者");
+          } else {
             this.$store.commit("updatePatient", this.patient);
             this.$store.commit("nextStep");
             this.$message({
               message: '已选择患者 ' + this.patient.name + ' !',
               type: 'success'
             });
-          } else {
-            this.$message.error("请确定患者");
           }
         }
       },
     },
     mounted() {
       this.patient = this.$store.state.targetDiagnose;
-      axios.post("/data/patient/getAllInfo", {
-        id: 'all'
-      }).then((result) => {
+      axios.get("/data/patient/getAll", {}).then((result) => {
         var res = result.data;
         this.patientList = res.result.list;
         if (this.pageType == 0) {
-          this.maxId = Math.max.apply(Math, this.patientList.map(function (o) {
-            return o.id
-          }));
-          this.patient.id = this.maxId + 1;
+          if (this.patientList.length > 0) {
+            this.maxId = Math.max.apply(Math, this.patientList.map(function (o) {
+              return o.id
+            }));
+            this.patient.id = this.maxId + 1;
+          } else {
+            this.patient.id = 10001;
+          }
         }
       })
     }

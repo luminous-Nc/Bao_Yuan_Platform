@@ -12,7 +12,7 @@
       <diagnose-history v-if="step==1"></diagnose-history>
       <add-diagnose v-if="step==2"></add-diagnose>
       <add-recipe v-if="step==3"></add-recipe>
-      <div v-if="step==4">搞完了</div>
+      <over v-if="step==4"></over>
     </div>
   </div>
 </template>
@@ -23,6 +23,7 @@
   import addDiagnose from '@/pages/doctor/addDiagnose.vue'
   import addRecipe from '@/pages/doctor/addRecipe.vue'
   import definePatient from "@/pages/doctor/definePatient.vue";
+  import over from '@/pages/doctor/over.vue';
 
   export default {
     name: "seeDoctor",
@@ -44,6 +45,7 @@
       addDiagnose,
       definePatient,
       addRecipe,
+      over
     }, methods: {
 
     }, mounted() {

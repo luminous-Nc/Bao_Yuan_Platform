@@ -6,14 +6,13 @@
       <el-col span="22">
         <div style="float:right">
           <el-input
-            style="width: 160px;margin-left: 10px"
+            style="width: 160px;margin: 0 20px"
             v-model="key"
             size="small"
             clearable
             placeholder="可搜索任意特征">
             <i slot="prefix" class="el-input__icon el-icon-search"></i>
           </el-input>
-          <el-button type="primary" size="small"  icon="el-icon-plus" plain>添加</el-button>
           <el-button @click="fresh" type="success" size = "small"icon="el-icon-refresh" plain>刷新</el-button>
         </div>
       </el-col>
@@ -99,7 +98,7 @@
 </template>
 
 <script>
-  import axios from 'axios/index'
+  import axios from 'axios'
     export default {
         data(){
           return {
@@ -114,7 +113,7 @@
 
           },
           getPatientInfo(requestId) {
-          axios.post("/data/patient/getOneInfo", {
+            axios.post("/data/patient/getOne", {
             id: requestId
           }).then((result) => {
             var res = result.data;
